@@ -1,11 +1,29 @@
-package main
-import "fmt"
+package main 
 
-func main()  {
+import (
+	"fmt"
+	"sync"
+)
 
-	fmt.Println("welcome to golang")
-	fmt.Println("hello krishna welecome to golang")
-	fmt.Println("golang is new programming languagr")
 
+ var wg = sync.WaitGroup{}
+
+func main() {
+	
+	 ch :=make(chan int)
+	wg.Add(2)
+	go func () {
+		i := <- ch 
+       fmt.Println(i)
+		wg.Done()
+		
+	}()
+
+	go func () {
+		ch <- 11
+		wg.Done()
+		
+		}()
+      wg.Wait()
 	
 }
